@@ -1,4 +1,5 @@
-name: Polaris
+# Polaris on a GitHub-hosted runner
+name: polaris-ephemeral
 
 on:
   push:
