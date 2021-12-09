@@ -18,5 +18,12 @@ pipeline {
                 cleanWs()
 	    }
         }
+	    
+	stage('Polaris') {
+            steps {
+                polaris arguments: 'analyze -w', polarisCli: 'Polaris'
+	    }
+        }
+   
     }
 }
