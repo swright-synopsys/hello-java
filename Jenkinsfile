@@ -12,18 +12,15 @@ pipeline {
                 sh 'mvn -e clean package -DskipTests'
             }
         }
-
+ 	stage('Polaris') {
+            steps {
+                polaris arguments: 'analyze -w', polarisCli: 'Polaris'
+	    }
+        }
         stage('Clean Workspace') {
             steps {
                 cleanWs()
 	    }
         }
-	    
-	stage('Polaris') {
-            steps {
-                polaris arguments: 'analyze -w', polarisCli: 'Polaris'
-	    }
-        }
-   
     }
 }
