@@ -4,6 +4,7 @@ public class ForwardNullExample {
         return testA(null);
     }
 
+    // pointless change
     public static Object callB() {
         // No defect report
         return testA(new Object());
