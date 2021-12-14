@@ -2,7 +2,7 @@ application:
   projectName: swright-hello-java
 environment:
   scm: github
-  scmOwner: <<SCM_OWNER>>
+  scmOwner: swright-synopsys
   scmRepositoryName: hello-java
   scmBranchName: master
   githubApiUrl: https://api.github.com/repos/
