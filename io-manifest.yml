@@ -3,7 +3,7 @@ application:
 environment:
   scm: github
   scmOwner: swright-synopsys
-  scmRepositoryName: hello-java
+  scmRepositoryName: hello-java-io
   scmBranchName: master
   githubApiUrl: https://api.github.com/repos/
   githubUsername: <<GITHUB_USERNAME>>
@@ -11,6 +11,7 @@ environment:
   gitlabHostUrl: <<GITLAB_HOST_URL>>
   gitlabToken: <<GITLAB_TOKEN>>
 connectors:
+# TODO the github connector isn't working right
 - connector_name: github
   fields:
     file_path: workflowengine-results.sarif.json
