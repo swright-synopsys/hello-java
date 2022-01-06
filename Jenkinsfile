@@ -6,11 +6,48 @@ pipeline {
     agent any
 
     environment {
+      // TODO fix these (or delete)
       IO_POC_PROJECT_NAME = 'IO-POC-insecure-bank'
       IO_POC_PROJECT_VERSION = "1.0"
     }
 
     stages {
+    	stage('IO Prescription') {
+              steps {
+                echo "Getting IO Prescription"
+                sh '''
+                  rm -fr prescription.sh
+                  wget "https://raw.githubusercontent.com/synopsys-sig/io-artifacts/${WORKFLOW_CLIENT_VERSION}/prescription.sh"
+                  sed -i -e 's/\r$//' prescription.sh
+                  chmod a+x prescription.sh
+                  ./prescription.sh \
+                  --stage="IO" \
+                  --persona="devsecops" \
+                  --io.url="${IO_URL}" \
+                  --io.token="${IO_ACCESS_TOKEN}" \
+                  --manifest.type="json" \
+                  --asset.id="insecure-bank" \
+                  --workflow.url="${WORKFLOW_URL}" \
+                  --workflow.version="${WORKFLOW_CLIENT_VERSION}" \
+                  --file.change.threshold="10" \
+                  --sast.rescan.threshold="20" \
+                  --sca.rescan.threshold="20" \
+                  --scm.type="github" \
+                  --scm.owner="swright-synopsys" \
+                  --scm.repo.name="swright-hello-java" \
+                  --scm.branch.name="main" \
+                  --github.username="swright-snopsys" \
+                  --github.token="${GTIHUB_ACCESS_TOKEN}" \
+                  --polaris.project.name="swright-hello-java" \
+                  --polaris.url="${POLARIS_SERVER_URL}" \
+                  --polaris.token="${POLARIS_ACCESS_TOKEN}" \
+                  --jira.enable="false" \
+                  --IS_SAST_ENABLED="${IS_SAST_ENABLED}" \
+                  --IS_SCA_ENABLED="${IS_SCA_ENABLED}" \
+                  --IS_DAST_ENABLED="${IS_DAST_ENABLED}"
+                  cat result.json
+                '''
+                }
         stage('Build') {
             steps {
                 sh 'mvn -e clean package -DskipTests'
@@ -26,5 +63,5 @@ pipeline {
                 cleanWs()
 	    }
         }
-    }
+    [A}
 }
