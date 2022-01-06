@@ -38,7 +38,7 @@ pipeline {
                   --sca.rescan.threshold="20" \
                   --scm.type="github" \
                   --scm.owner="swright-synopsys" \
-                  --scm.repo.name="swright-hello-java" \
+                  --scm.repo.name="hello-java-io" \
                   --scm.branch.name="main" \
                   --github.username="swright-snopsys" \
                   --github.token="${GITHUB_ACCESS_TOKEN}" \
