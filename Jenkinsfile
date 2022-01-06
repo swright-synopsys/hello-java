@@ -48,6 +48,7 @@ pipeline {
                   cat result.json
                 '''
                 }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -e clean package -DskipTests'
