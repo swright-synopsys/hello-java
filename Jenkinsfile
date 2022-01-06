@@ -18,7 +18,7 @@ pipeline {
         }
  	stage('Polaris') {
             steps {
-                polaris arguments: 'analyze -w', polarisCli: 'Polaris'
+                polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
         }
         stage('Clean Workspace') {
