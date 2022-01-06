@@ -9,6 +9,7 @@ pipeline {
       IO_URL = "http://io.synopsys.com"
       POLARIS_ACCESS_TOKEN = credentials('polaris-token')
       IO_ACCESS_TOKEN = credentials('IO-AUTH-TOKEN')
+      GITHUB_ACCESS_TOKEN = credentials('Github-AuthToken')
 
       //IO_POC_PROJECT_NAME = 'IO-POC-insecure-bank'
       //IO_POC_PROJECT_VERSION = "1.0"
@@ -40,14 +41,14 @@ pipeline {
                   --scm.repo.name="swright-hello-java" \
                   --scm.branch.name="main" \
                   --github.username="swright-snopsys" \
-                  --github.token="${GTIHUB_ACCESS_TOKEN}" \
+                  --github.token="${GITHUB_ACCESS_TOKEN}" \
                   --polaris.project.name="swright-hello-java" \
                   --polaris.url="${POLARIS_SERVER_URL}" \
                   --polaris.token="${POLARIS_ACCESS_TOKEN}" \
                   --jira.enable="false" \
-                  --IS_SAST_ENABLED="${IS_SAST_ENABLED}" \
-                  --IS_SCA_ENABLED="${IS_SCA_ENABLED}" \
-                  --IS_DAST_ENABLED="${IS_DAST_ENABLED}"
+                  --IS_SAST_ENABLED="false" \
+                  --IS_SCA_ENABLED="false" \
+                  --IS_DAST_ENABLED="false"
                   cat result.json
                 '''
                 }
