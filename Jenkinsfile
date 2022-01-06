@@ -6,9 +6,12 @@ pipeline {
     agent any
 
     environment {
-      // TODO fix these (or delete)
-      IO_POC_PROJECT_NAME = 'IO-POC-insecure-bank'
-      IO_POC_PROJECT_VERSION = "1.0"
+      IO_URL = "http://io.synopsys.com"
+      POLARIS_ACCESS_TOKEN = credentials('polaris-token')
+      IO_ACCESS_TOKEN = credentials('IO-AUTH-TOKEN')
+
+      //IO_POC_PROJECT_NAME = 'IO-POC-insecure-bank'
+      //IO_POC_PROJECT_VERSION = "1.0"
     }
 
     stages {
@@ -26,7 +29,7 @@ pipeline {
                   --io.url="${IO_URL}" \
                   --io.token="${IO_ACCESS_TOKEN}" \
                   --manifest.type="json" \
-                  --asset.id="insecure-bank" \
+                  --asset.id="swright-hello-java" \
                   --workflow.url="${WORKFLOW_URL}" \
                   --workflow.version="${WORKFLOW_CLIENT_VERSION}" \
                   --file.change.threshold="10" \
