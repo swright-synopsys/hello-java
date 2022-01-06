@@ -28,7 +28,7 @@ pipeline {
                   --persona="devsecops" \
                   --io.url="${IO_URL}" \
                   --io.token="${IO_ACCESS_TOKEN}" \
-                  --manifest.type="json" \
+                  --manifest.type="yml" \
                   --asset.id="swright-hello-java" \
                   --workflow.url="${WORKFLOW_URL}" \
                   --workflow.version="${WORKFLOW_CLIENT_VERSION}" \
