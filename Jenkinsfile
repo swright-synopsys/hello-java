@@ -1,6 +1,6 @@
-@Library('intelligent-orchestration')
-    import com.synopsys.*
-    new com.demo.pipeline.EntryPoint().execute('io-manifest.yml')
+//@Library('intelligent-orchestration')
+//    import com.synopsys.*
+//    new com.demo.pipeline.EntryPoint().execute('io-manifest.yml')
 
 pipeline {
     agent any
@@ -16,11 +16,11 @@ pipeline {
                 sh 'mvn -e clean package -DskipTests'
             }
         }
- 	//stage('Polaris') {
-        //    steps {
-        //        polaris arguments: 'analyze -w', polarisCli: 'Polaris'
-	//    }
-        //}
+ 	stage('Polaris') {
+            steps {
+                polaris arguments: 'analyze -w', polarisCli: 'Polaris'
+	    }
+        }
         stage('Clean Workspace') {
             steps {
                 cleanWs()
