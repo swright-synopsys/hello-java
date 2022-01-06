@@ -26,7 +26,7 @@ pipeline {
                   chmod a+x prescription.sh
                   ./prescription.sh \
                   --stage="IO" \
-                  --persona="devsecops" \
+                  --persona="developer" \
                   --io.url="${IO_URL}" \
                   --io.token="${IO_ACCESS_TOKEN}" \
                   --manifest.type="yml" \
