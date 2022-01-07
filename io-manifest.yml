@@ -9,15 +9,13 @@ environment:
   githubApiUrl: https://api.github.com/repos/
   githubUsername: <<GITHUB_USERNAME>>
   githubToken: <<GITHUB_ACCESS_TOKEN>>
-  gitlabHostUrl: <<GITLAB_HOST_URL>>
-  gitlabToken: <<GITLAB_TOKEN>>
 connectors:
 # TODO the github connector isn't working right
 - connector_name: github
   fields:
     file_path: workflowengine-results.sarif.json
     owner_name: swright-synopsys
-    repository_name: <<GITHUB_REPO_NAME>>
+    repository_name: hello-java-io
     ref: <<GITHUB_REF>>
     commit_id: <<GITHUB_COMMIT_ID>>
     username: <<GITHUB_USERNAME>>
