@@ -43,7 +43,7 @@ pipeline {
                   --github.username="swright-snopsys" \
                   --github.token="${GITHUB_ACCESS_TOKEN}" \
                   --polaris.project.name="swright-hello-java" \
-                  --polaris.url="${POLARIS_SERVER_URL}" \
+                  --polaris.url="https://sipse.polaris.synopsys.com" \
                   --polaris.token="${POLARIS_ACCESS_TOKEN}" \
                   --jira.enable="false" \
                   --IS_SAST_ENABLED="false" \
