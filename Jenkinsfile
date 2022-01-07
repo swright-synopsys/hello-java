@@ -6,7 +6,7 @@ pipeline {
     agent any
 
     environment {
-      IO_URL = "http://io.synopsys.com"
+      IO_URL = "http://io.synopsys.com/api/ioiq"
       POLARIS_ACCESS_TOKEN = credentials('polaris-token')
       IO_ACCESS_TOKEN = credentials('IO-AUTH-TOKEN')
       GITHUB_ACCESS_TOKEN = credentials('Github-AuthToken')
