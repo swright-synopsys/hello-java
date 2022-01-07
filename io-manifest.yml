@@ -1,5 +1,6 @@
 application:
   projectName: swright-hello-java
+  release: major
 environment:
   scm: github
   scmOwner: swright-synopsys
