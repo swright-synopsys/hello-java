@@ -50,6 +50,7 @@ pipeline {
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
                   cat result.json | json_pp
+                  env.IS_SAST_ENABLED = sh(script:'jq -r ".security.activities.sast.enabled" result.json', returnStdout: true).trim()
                 '''
                 }
         }
@@ -59,6 +60,9 @@ pipeline {
             }
         }
  	stage('Polaris') {
+            when {
+                expression { env.IS_SAST_ENABLED == "true" }
+            }
             steps {
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
