@@ -49,7 +49,7 @@ pipeline {
                   --IS_SAST_ENABLED="false" \
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
-                  cat result.json
+                  cat result.json | json_pp
                 '''
                 }
         }
