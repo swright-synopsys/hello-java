@@ -50,7 +50,9 @@ pipeline {
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
                   cat result.json | json_pp
-                  env.IS_SAST_ENABLED = sh(script:'jq -r ".security.activities.sast.enabled" result.json', returnStdout: true).trim()
+                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' result.json)
+                  echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
+                  env.IS_SAST_ENABLED = ${IS_SAST_ENABLED}
                 '''
                 }
         }
