@@ -52,7 +52,7 @@ pipeline {
                   cat result.json | json_pp
                   IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' result.json)
                   echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
-                  env.IS_SAST_ENABLED=${IS_SAST_ENABLED}
+                  env.IS_SAST_ENABLED=\${IS_SAST_ENABLED}
                 '''
               }
         }
