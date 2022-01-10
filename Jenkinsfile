@@ -64,9 +64,9 @@ pipeline {
             }
         }
  	stage('Polaris') {
-            when {
-                expression { ${env.IS_SAST_ENABLED} == "true" }
-            }
+            //when {
+            //    expression { ${env.IS_SAST_ENABLED} == "true" }
+            //}
             steps {
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
