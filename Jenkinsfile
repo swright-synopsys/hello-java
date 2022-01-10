@@ -69,7 +69,7 @@ pipeline {
             steps {
                 //echo "should we run sast?: ${env.IS_SAST_ENABLED}"
                 sh '''
-                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' io-presciption.json)
+                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' io-prescription.json)
                   echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
                   if [ ${IS_SAST_ENABLED} = "true" ]; then
                     echo "we need to run SAST!"
