@@ -68,7 +68,7 @@ pipeline {
             //    expression { ${env.IS_SAST_ENABLED} == "true" }
             //}
             steps {
-                echo "should we run sast?: ${env.IS_SAST_ENABLED}"
+                //echo "should we run sast?: ${env.IS_SAST_ENABLED}"
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
         }
