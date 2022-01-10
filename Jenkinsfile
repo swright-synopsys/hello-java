@@ -50,9 +50,10 @@ pipeline {
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
                   cat result.json | json_pp
-                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' result.json)
-                  echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
-                  env.IS_SAST_ENABLED=\${IS_SAST_ENABLED}
+                  mv result.json io-prescription.json
+                  //IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' result.json)
+                  //echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
+                  //env.IS_SAST_ENABLED=\${IS_SAST_ENABLED}
                 '''
               }
         }
@@ -67,6 +68,12 @@ pipeline {
             //}
             steps {
                 //echo "should we run sast?: ${env.IS_SAST_ENABLED}"
+                sh '''
+                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' io-presciption.json)
+                  echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
+                  if [ ${IS_SAST_ENABLED} = "true" ]; then
+                    echo "we need to run SAST!"
+                '''
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
         }
