@@ -72,6 +72,38 @@ pipeline {
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
         }
+    	stage('IO Workflow') {
+              steps {
+                echo "Running IO Workflow"
+                // Note we already downloaded prescription.sh above
+                // this step downloads a jar that must be executed
+                sh '''
+                  ./prescription.sh \
+                  --stage="WORKFLOW" \
+                  --persona="developer" \
+                  --io.url="${IO_URL}" \
+                  --io.token="${IO_ACCESS_TOKEN}" \
+                  --manifest.type="yml" \
+                  --asset.id="swright-hello-java" \
+                  --workflow.url="${WORKFLOW_URL}" \
+                  --workflow.version="${WORKFLOW_CLIENT_VERSION}" \
+                  --file.change.threshold="10" \
+                  --sast.rescan.threshold="20" \
+                  --sca.rescan.threshold="20" \
+                  --github.username="swright-snopsys" \
+                  --github.token="${GITHUB_ACCESS_TOKEN}" \
+                  --polaris.project.name="swright-hello-java" \
+                  --polaris.url="https://sipse.polaris.synopsys.com" \
+                  --polaris.token="${POLARIS_ACCESS_TOKEN}" \
+                  --jira.enable="false" \
+                  --IS_SAST_ENABLED=${IS_SAST_ENABLED} \
+                  --IS_SCA_ENABLED="false" \
+                  --IS_DAST_ENABLED="false"
+                  cat result.json | json_pp
+                  ls -l *.jar
+                '''
+              }
+        }
         stage('Clean Workspace') {
             steps {
                 cleanWs()
