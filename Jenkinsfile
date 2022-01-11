@@ -55,6 +55,9 @@ pipeline {
                   # echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
                   # env.IS_SAST_ENABLED=\${IS_SAST_ENABLED}
                 '''
+                script {
+                  env.IS_SAST_ENABLED_GOOD = sh(script:'jq -r ".security.activities.sast.enabled" io-prescription.json', returnStdout: true).trim()
+                }
               }
         }
         stage('Build') {
@@ -63,9 +66,9 @@ pipeline {
             }
         }
  	stage('Polaris') {
-            //when {
-            //    expression { ${env.IS_SAST_ENABLED} == "true" }
-            //}
+            when {
+                expression { env.IS_SAST_ENABLED_GOOD == "true" }
+            }
             steps {
                 //echo "should we run sast?: ${env.IS_SAST_ENABLED}"
                 sh '''
@@ -73,6 +76,7 @@ pipeline {
                   echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
                   if [ ${IS_SAST_ENABLED} = "true" ]; then
                     echo "we need to run SAST!"
+                  fi
                 '''
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
