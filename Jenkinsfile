@@ -50,13 +50,12 @@ pipeline {
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
                   cat result.json | json_pp
+                  # doing this because Al had trouble with later
+                  # API calls overwrite result.json
                   mv result.json io-prescription.json
-                  # IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' result.json)
-                  # echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
-                  # env.IS_SAST_ENABLED=\${IS_SAST_ENABLED}
                 '''
                 script {
-                  env.IS_SAST_ENABLED_GOOD = sh(script:'jq -r ".security.activities.sast.enabled" io-prescription.json', returnStdout: true).trim()
+                  env.IS_SAST_ENABLED = sh(script:'jq -r ".security.activities.sast.enabled" io-prescription.json', returnStdout: true).trim()
                 }
               }
         }
@@ -67,17 +66,9 @@ pipeline {
         }
  	stage('Polaris') {
             when {
-                expression { env.IS_SAST_ENABLED_GOOD == "true" }
+                expression { env.IS_SAST_ENABLED == "true" }
             }
             steps {
-                //echo "should we run sast?: ${env.IS_SAST_ENABLED}"
-                sh '''
-                  IS_SAST_ENABLED=$(jq -r '.security.activities.sast.enabled' io-prescription.json)
-                  echo "IS_SAST_ENABLED = ${IS_SAST_ENABLED}"
-                  if [ ${IS_SAST_ENABLED} = "true" ]; then
-                    echo "we need to run SAST!"
-                  fi
-                '''
                 polaris arguments: 'analyze -w', polarisCli: 'PolarisCLI'
 	    }
         }
