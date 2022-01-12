@@ -81,7 +81,7 @@ pipeline {
                 sh '''
                   ./prescription.sh \
                   --stage="WORKFLOW" \
-                  --persona="developer" \
+                  --persona="eatmyshorts" \
                   --io.url="${IO_URL}" \
                   --io.token="${IO_ACCESS_TOKEN}" \
                   --manifest.type="json" \
