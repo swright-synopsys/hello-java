@@ -76,7 +76,8 @@ pipeline {
               steps {
                 echo "Running IO Workflow"
                 // Note we already downloaded prescription.sh above
-                // this step downloads a jar that must be executed
+                // this step downloads a jar that must be executed.
+                // it should also create a manifest json file
                 sh '''
                   ./prescription.sh \
                   --stage="WORKFLOW" \
@@ -99,8 +100,8 @@ pipeline {
                   --IS_SAST_ENABLED=${IS_SAST_ENABLED} \
                   --IS_SCA_ENABLED="false" \
                   --IS_DAST_ENABLED="false"
-                  cat result.json | json_pp
-                  ls -l *.jar
+                  cat synopsys-io.json | json_pp
+                  java -jar WorkflowClient.jar --workflowengine.url="${WORKFLOW_URL}" --io.manifest.path=synopsys-io.json
                 '''
               }
         }
