@@ -1,0 +1,31 @@
+version: "1"
+project:
+  name: ${scm.git.repo}
+  branch: ${scm.git.branch}
+  revision:
+    name: ${scm.git.commit}
+    date: ${scm.git.commit.date}
+capture:
+  build:
+    cleanCommands:
+    - shell: [msbuild, MyApp.sln, /t:Clean]
+    buildCommands:
+    - shell: [msbuild, MyApp.sln, /t:Build]
+    coverity:
+      skipFiles:
+      - MyApp.Tests
+  fileSystem:
+    javascript:
+      files:
+      - directory: ${project.projectDir}
+      - excludeRegex: packages|test|env\/qa/.*
+    typescript:
+      files:
+      - directory: ${project.projectDir}
+      - excludeRegex: packages|test|env\/qa/.*
+analyze:
+  mode: central
+install:
+  coverity:
+    version: default
+serverUrl: https://lplfinancial.polaris.synopsys.com
